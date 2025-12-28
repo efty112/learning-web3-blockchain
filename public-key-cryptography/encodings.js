@@ -22,5 +22,30 @@ console.log(asciiToBytes) //=> Uint8Array(5) [ 72, 101, 108, 108, 111 ]
 
 
 
-// Hexadecimal:
-//--------------
+// Hexadecimal: [1 character = 4 bits]
+//------------------------------------
+
+// Bytes to Hex:
+const bytesArray3 = new Uint8Array([72, 101, 108, 108, 111]);
+let hexString = "";
+
+bytesArray3.map((a) => {
+    hexString += a.toString(16).padStart(2,'0');
+});
+
+console.log(hexString);
+
+// Hex to Bytes:
+let bytes = new Uint8Array(hexString.length/2);
+
+for (let i=0; i < bytes.length; i++){
+    bytes[i] = parseInt(hexString.substring(i*2, i*2 + 2), 16)
+}
+
+/*SUBSTRING vs SUBSTR:
+--> Both cut a string into a certain piece
+--> substring(startIndex, expectedEndIndex+1)
+--> substr(startIndex, numberOfCharacters)*/
+
+console.log(bytes);
+
