@@ -33,7 +33,7 @@ bytesArray3.map((a) => {
     hexString += a.toString(16).padStart(2,'0');
 });
 
-console.log(hexString);
+console.log(hexString); //=> 48656c6c6f
 
 // Hex to Bytes:
 let bytes = new Uint8Array(hexString.length/2);
@@ -49,3 +49,33 @@ for (let i=0; i < bytes.length; i++){
 
 console.log(bytes);
 
+
+
+// BASE-64: [1 character = 6 bits] -> [A-Z, a-z, 0-9, +, /]
+// ---------------------------------------
+
+// Bytes to Base64:
+const bytesArray4 = new Uint8Array([72, 101, 108, 108, 111]);
+const base64String = Buffer.from(bytesArray4).toString("base64");
+console.log(base64String); //=> SGVsbG8=
+
+// Base64 to Bytes:
+const base64ToBytes = Buffer.from(base64String, 'base64');
+console.log(new Uint8Array(base64ToBytes)); //=> Uint8Array(5) [ 72, 101, 108, 108, 111 ]
+
+
+
+// BASE-58: [Similar to Base64, but excluding I, O, l, 0, +, /]
+//---------------------------------------
+// Using "bs58" npm package
+import bs58 from 'bs58'
+
+// Bytes to Base58:
+const bytesArray5 = new Uint8Array([72, 101, 108, 108, 111]);
+const base58String = bs58.encode(bytesArray5)
+console.log(base58String); //=> 9Ajdvzr
+
+
+// Base58 to Bytes:
+const base58Tobytes = bs58.decode(base58String);
+console.log(base58Tobytes); //=> Uint8Array(5) [ 72, 101, 108, 108, 111 ]
