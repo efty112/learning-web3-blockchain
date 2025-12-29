@@ -1,0 +1,79 @@
+/*
+Encryption: [Key Dependent and Reversable]
+------------------------------------------
+
+"2" Types of Encryption:
+-------------------------
+    1. Symmetric Encryption
+    [Same key for both encryption and decryption]
+
+    [Encryption]
+    Plain Text --> (KEY) --> Unreadable Text (CipherText)
+
+    [Decryption]
+    Cipher Text --> (KEY) --> Plain Text
+
+
+    2. Asymmetric Encryption
+    [Different keys are used for encryption (public key / private key) and decryption (private key / public key). => {Used in blockchain} => The keys are mathematically related, but it is computationally infeasible to derive the private key from the public key.]
+
+    [Encryption]
+    Plain Text --> (Private KEY) --> Unreadable Text (CipherText)
+
+    [Decryption]
+    Cipher Text --> (Public KEY) --> Plain Text
+
+    [Encrypt via Public Key, Decrypt via Private Key]
+    [Encrypt via Private Key, Decrypt via Public Key]
+
+
+If you want to ensure not just the message but also where it came from:
+
+"Hello" --> (p1 Private Key) --> "asdasd"
+
+"asdasd" --> (p2 Public Key) --> "popopo"
+"popopo" --> (p2 Private Key) --> "asdasd"
+
+"asdasd" --> (p1 Public Key) --> "Hello"
+*/
+
+// Symmetric Encryption: [https://nodejs.org/api/crypto.html#class-cipheriv] [https://www.w3schools.com/nodejs/nodejs_crypto.asp]
+import crypto from "crypto";
+
+const algorithmName = 'aes-256-cbc';
+const key = crypto.scryptSync('secretPassword', 'salt', 32);
+const iv = crypto.randomBytes(16);
+
+function encryptData(message){
+    const cipher = crypto.createCipheriv(algorithmName, key, iv);
+    let encrypted = cipher.update(message, 'utf8', 'hex');
+    encrypted += cipher.final('hex');
+
+    return encrypted;
+}
+
+function decryptData(encryptedText){
+    const decipher = crypto.createDecipheriv('aes-256-cbc', key, Buffer.from(iv, 'hex'));
+
+    let decrypted = decipher.update(encryptedData, 'hex', 'utf8');
+    decrypted += decipher.final('utf8');
+
+    return decrypted;
+}
+
+const message = 'Hello Secrets';
+const encryptedData = encryptData(message);
+console.log(encryptedData);
+
+const decryptedData = decryptData(encryptedData);
+console.log(decryptedData);
+
+/*
+[From a private key, you can always derive a public key. From a Public key, you can never derive a private key.]
+
+Common Asymmetric Encryption Algorithms:
+    1. RSA - Rivest–Shamir–Adleman
+    2. ECC - Elliptic Curve Cryptography (ECDSA) - ETH and BTC uses
+    3. EdDSA - Edwards-curve Digital Signature Algorithm – SOL uses
+*/
+
