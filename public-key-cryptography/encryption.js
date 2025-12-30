@@ -89,11 +89,15 @@ import * as ed from '@noble/ed25519';
 (async () => {
     const secretKey = ed.utils.randomSecretKey();
     const publicKey = await ed.getPublicKeyAsync(secretKey);
+    
+    console.log("ed25519 secret:", secretKey);
+    console.log("ed25519 public:", publicKey);
+
     const message = new TextEncoder().encode('hello noble');
     const signature = await ed.signAsync(message, secretKey);
     const isValid = await ed.verifyAsync(signature, message, publicKey);
 
-    console.log(isValid);
+    console.log("ed25519 isValid",isValid);
 })();
 
 
@@ -103,8 +107,8 @@ import bs58 from "bs58";
 import nacl from "tweetnacl";
 
 const keypair = Keypair.generate();
-console.log("Public Key:", keypair.publicKey.toString())
-console.log("Private Key:", bs58.encode(keypair.secretKey))
+console.log("Solana Public Key:", keypair.publicKey.toString())
+console.log("Solana Private Key:", bs58.encode(keypair.secretKey))
 
 const messageBytes = new TextEncoder().encode("Hello Solana/Web3");
 const signature = nacl.sign.detached(messageBytes, keypair.secretKey);
@@ -114,4 +118,42 @@ const result = nacl.sign.detached.verify(
   keypair.publicKey.toBytes()
 );
 
-console.log(result);
+console.log("Solana Result",result);
+
+
+// Creating Public-Private Keypair using @noble/secp256k1: [https://www.npmjs.com/package/@noble/secp256k1]
+
+import * as secp from '@noble/secp256k1';
+
+(async () => {
+//   const { secretKey, publicKey } = secp.keygen();
+    const secretKey = secp.utils.randomSecretKey();
+    const publicKey = await secp.getPublicKey(secretKey);
+
+    console.log("Secp secret:",secretKey);
+    console.log("Secp Public:" ,publicKey);
+
+    const msg = new TextEncoder().encode('hello noble');
+    const sig = await secp.signAsync(msg, secretKey);
+    const isValid = await secp.verifyAsync(sig, msg, publicKey);
+    console.log("Secp isValid",isValid);
+})();
+
+
+// Creating Public-Private Keypair using Ethers: [https://docs.ethers.org/v6/api/wallet/#Wallet-encrypt]
+
+import {ethers} from "ethers";
+
+const wallet = ethers.Wallet.createRandom();
+
+const publicKey = wallet.address;
+const privateKey = wallet.privateKey;
+
+console.log("Ethers Public:", publicKey);
+console.log("Ethers Secret:", privateKey);
+
+const message2 = "Hello Ethers";
+const signatureEther = wallet.signMessageSync(message2);
+const recoveredAddress = ethers.verifyMessage(message2, signatureEther);
+console.log("Ether Recov Address:", recoveredAddress);
+console.log("Ether isValid:", recoveredAddress == publicKey);
