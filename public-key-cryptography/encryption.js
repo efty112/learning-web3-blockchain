@@ -83,7 +83,7 @@ Common Asymmetric Encryption Algorithms:
     --> Library: @noble/ed25519 | @solana/web3.js
 */
 
-// Creating Public-Private Keypair using @noble/ed25519:
+// Creating Public-Private Keypair using @noble/ed25519: [https://www.npmjs.com/package/@noble/ed25519]
 import * as ed from '@noble/ed25519';
 
 (async () => {
@@ -95,3 +95,23 @@ import * as ed from '@noble/ed25519';
 
     console.log(isValid);
 })();
+
+
+// Creating Public-Private Keypair using @solana/web3js: [https://solana.com/developers/cookbook/wallets/create-keypair]
+import { Keypair } from "@solana/web3.js";
+import bs58 from "bs58";
+import nacl from "tweetnacl";
+
+const keypair = Keypair.generate();
+console.log("Public Key:", keypair.publicKey.toString())
+console.log("Private Key:", bs58.encode(keypair.secretKey))
+
+const messageBytes = new TextEncoder().encode("Hello Solana/Web3");
+const signature = nacl.sign.detached(messageBytes, keypair.secretKey);
+const result = nacl.sign.detached.verify(
+  messageBytes,
+  signature,
+  keypair.publicKey.toBytes()
+);
+
+console.log(result);
