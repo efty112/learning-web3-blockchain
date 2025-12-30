@@ -73,7 +73,25 @@ console.log(decryptedData);
 
 Common Asymmetric Encryption Algorithms:
     1. RSA - Rivest–Shamir–Adleman
+
     2. ECC - Elliptic Curve Cryptography (ECDSA) - ETH and BTC uses
+    --> Uses "secp256k1" elliptic Curve
+    --> Library: @noble/secp256k1 | ethers
+
     3. EdDSA - Edwards-curve Digital Signature Algorithm – SOL uses
+    --> Uses "ed25519" elliptic Curve.
+    --> Library: @noble/ed25519 | @solana/web3.js
 */
 
+// Creating Public-Private Keypair using @noble/ed25519:
+import * as ed from '@noble/ed25519';
+
+(async () => {
+    const secretKey = ed.utils.randomSecretKey();
+    const publicKey = await ed.getPublicKeyAsync(secretKey);
+    const message = new TextEncoder().encode('hello noble');
+    const signature = await ed.signAsync(message, secretKey);
+    const isValid = await ed.verifyAsync(signature, message, publicKey);
+
+    console.log(isValid);
+})();
