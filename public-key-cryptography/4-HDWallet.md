@@ -43,7 +43,7 @@ From these Mnemonics, you can always recover your Wallet Addresses.
 
 ### Create Public Private Keypair:
 ```
-Mnemonic Phrases --> Single Seed Phrase --> (Derivation Path) --> Derived Seed --> Private (Secret) Key --> Public Key
+Mnemonic Phrases --> Single Seed Phrase --> (Derivation Path) --> Derived Seed --> Derived Secret --> Private (Secret) Key --> Public Key
 ```
 
 ### Derivation Paths:
