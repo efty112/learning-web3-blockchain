@@ -123,3 +123,26 @@ Public Keys:
     [last 40 characters are “Hexadecimal” (ignore the first 2 characters)]
 ```
 
+
+### Under the Hood
+#### [How Public Keys are generated from Private Keys]:
+
+**Ethereum:**
+```
+keccak-256: It is a Hashing Algorithm that Ethereum uses to Hash Public Key.
+
+In Ethereum, Private Keys are generated Randomly from a Mnemonic/Seed Phrase.
+
+[Private Key] --> (secp256k1 elliptic curve) --> [Initial Public Key - 64 bytes - Uncompressed] --> (Keccak-256 Hash) --> [32 Bytes of Hash] --> (Take last 20 bytes) --> [Final Public Key - Compressed]
+
+```
+
+**Solana:**
+```
+In Solana, Private Keys are generated Randomly from a Mnemonic/Seed Phrase.
+
+[Private Key - 64 bytes] --> (ED25519 elliptic curve) --> [Public Key - 32 bytes]
+
+Here, The 64 bytes Private Key contains: 32 bytes (own) + 32 bytes (public Key)
+
+```
