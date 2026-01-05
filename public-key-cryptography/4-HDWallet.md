@@ -100,3 +100,26 @@ m/44'/60'/0' => 1st Wallet on Ethereum.
 m/44'/60'/1' => 2nd Wallet on Ethereum.
 m/44'/60'/2' => 3rd Wallet on Ethereum.
 ```
+
+
+**Note:**
+```
+-   For Solana:
+Private Keys:
+    64 bytes --> (Convert into Base 58) --> 88 characters
+
+Public Keys: 
+    32 Bytes --> (Convert into Base 58) --> 44 Characters
+```
+
+```
+-   For Ethereum:
+Private Keys:
+    (32 bytes) --> 66 characters
+    [last 64 characters are “Hexadecimal” (ignore the first 2 characters)]
+
+Public Keys:
+    (20 bytes)  --> 42 characters
+    [last 40 characters are “Hexadecimal” (ignore the first 2 characters)]
+```
+
