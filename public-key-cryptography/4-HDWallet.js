@@ -17,7 +17,7 @@ import bip39 from "bip39"
 import { derivePath } from "ed25519-hd-key";
 import nacl from "tweetnacl";
 import bs58 from "bs58";
-import {ethers, HDNodeWallet} from "ethers";
+import {ethers, HDNodeWallet, Wallet} from "ethers";
 
 const mnemonic = bip39.generateMnemonic(); //=> Generates 12 words
 // const mnemonic = bip39.generateMnemonic(256); //=> Generates 24 words
@@ -44,7 +44,7 @@ for(let i=0; i<numberOfKeyPairs; i++){
     console.log(publicKey, "->" ,privateKey);
 }
 
-console.log("\nEthereum Addresses:");
+console.log("\nEthereum Addresses (Way-1):");
 console.log("-------------------");
 
 // const ethMnemonics = ethers.Mnemonic.fromPhrase(mnemonic);
@@ -60,7 +60,36 @@ for (let i=0; i<numberOfKeyPairs; i++){
     const path = `m/44'/60'/0'/0/${i}`;
     const wallet = ethHdWalletInstance.derivePath(path);
 
-    console.log(wallet.path)
-    console.log(wallet.address)
-    console.log(wallet.privateKey)
+    // console.log(wallet.path)
+    console.log(wallet.address, "->", wallet.privateKey);
 }
+
+console.log("\nEthereum Addresses (Way-2):");
+console.log("-------------------");
+
+const seed = bip39.mnemonicToSeedSync(mnemonic);
+
+for (let i=0; i<numberOfKeyPairs; i++){
+    const path = `m/44'/60'/${i}'/0'`;
+    const hdNode = HDNodeWallet.fromSeed(seed);
+    const child = hdNode.derivePath(path);
+    const privateKey = child.privateKey;
+    const wallet = new Wallet(privateKey);
+    console.log(wallet.address, "->", wallet.privateKey);   
+}
+
+/**
+ * ----- NOTE: ------
+ * ------------------
+ * path = `m/44'/60'/0'/0/${i}` --> Standard
+ * path = `m/44'/60'/${i}'/0'`
+ * 
+ * Both are correct paths for Ethereum. But they don't generate the same set of addresses.
+ * While m/44'/60'/0'/0/0 is the prevailing standard, you may encounter slight variations depending on when and which wallet you used to create your address.
+ * 
+ * Legacy/Older Wallets: Some older wallets, such as early versions of MyEtherWallet and MyCrypto, used a slightly shorter path, omitting the last 0: m/44'/60'/0'/0. When using a custom path tool, you might need to use this format to find older addresses.
+ * 
+ * Hardware Wallets: Ledger Live typically uses the standard m/44'/60'/0'/0/0 and increments the account index (e.g., m/44'/60'/1'/0/0) for additional accounts.
+ * 
+ * Trezor and MetaMask use the standard path and typically increment the address index (e.g., m/44'/60'/0'/0/1) if multiple addresses are generated within a single account.
+ */
