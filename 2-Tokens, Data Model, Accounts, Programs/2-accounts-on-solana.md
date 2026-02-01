@@ -17,6 +17,8 @@ Basically, our (normal) accounts contain Lamports (Sol coins). But these account
 
 On Solana, programs are special accounts that contain executable code. These accounts are distinct from regular data accounts in that they are designed to be executed by the blockchain when triggered by a transaction.
 
+A single account can store lamports AND data, but only program accounts are executable.
+
 #### Examples:
 
 ***Token Program Account:***

@@ -2,7 +2,7 @@
 
 **Problem with Bitcoin:**
 
-Bitcoin is one of the very first blockchains ever created. But this blockchain is basically (fully) focused on the "Decentralized Money" concept. This means you can't use it for any other purposes.
+Bitcoin is one of the very first blockchains ever created. But this blockchain is basically (fully) focused on the "Decentralized Money" concept. This means Bitcoin is intentionally limited and cannot support complex decentralized applications.
 
 ***For Example:***
 

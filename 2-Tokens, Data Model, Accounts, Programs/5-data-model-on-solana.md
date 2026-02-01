@@ -19,6 +19,12 @@ To Store **each dataset** in solana, you have to create an **individual account*
 
 When you created an associated token account, you actually created a **PDA (Program Derived Address)**.
 
+An Associated Token Account (ATA) is a specific type of PDA, derived using:
+
+    1. Wallet address
+    2. Token mint
+    3. Associated Token Program
+
 
 ```
 -----------------

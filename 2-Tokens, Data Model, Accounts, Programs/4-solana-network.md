@@ -2,9 +2,9 @@
 
 **Three types:**
 
-    1. MainNet --> Main Solana Network. (Real One)
-    2. DevNet --> Same as MainNet. But only for testing purpose.
-    3. TestNet --> Live production environment
+    1. Mainnet → Real users, real SOL
+    2. Devnet → Public testing network, resets occasionally, free SOL
+    3. Testnet → Validator & protocol testing, unstable
 
 
 **Good Read:**
