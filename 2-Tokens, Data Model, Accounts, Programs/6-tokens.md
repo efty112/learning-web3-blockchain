@@ -75,3 +75,7 @@ It’s like a bank that has the authority to create more coins. It can also have
 Before you can ask other people to send you a token, you need to create an associated token account for that token and your public key. Each wallet has one ATA per token mint.
 
 ----------------
+
+#### Read More:
+Solana Tokens: https://solana.com/docs/tokens
+Program Derived Address (PDA): https://solana.com/docs/core/pda
