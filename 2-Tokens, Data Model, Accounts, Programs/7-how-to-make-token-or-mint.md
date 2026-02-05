@@ -50,11 +50,11 @@
 
 ```
 
-***Create An associated token Account to hold a balance of the new Token:***
+***Create A Token Account to hold a balance of the new Token:***
 ```
-    1. Create an Associated Account: "spl-token create-account <token_address>"
+    1. Create a Token Account: "spl-token create-account <token_address>"
 
-(Now, you can see that the Associated Account is an Empty Account.)
+(Now, you can see that the Account is an Empty Account.)
 
     2. See the Balance: spl-token balance <token_address>
 ```
@@ -97,4 +97,7 @@ Once the ATA is created for your friend, every time you send some tokens to your
 (Tokens with Zero Decimal Places, Only 1 in Amount and Future Minting is disabled are called Non-Fungible Tokens)
 
 **Details:** https://www.solana-program.com/docs/token#example-create-a-non-fungible-token
+
+
+***Original SPL Token Program:*** (For Original SPL Token Program, Metaplex is used to attatch additional data to the Tokens) --> https://developers.metaplex.com/smart-contracts/token-metadata
 
