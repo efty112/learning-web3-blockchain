@@ -1,5 +1,5 @@
 const { createMint, TOKEN_PROGRAM_ID, getMint, getOrCreateAssociatedTokenAccount, getAccount, mintTo } = require("@solana/spl-token");
-const { Connection, clusterApiUrl, Keypair } = require("@solana/web3.js");
+const { Connection, clusterApiUrl, Keypair, LAMPORTS_PER_SOL } = require("@solana/web3.js");
 const fs = require("fs");
 
 // Getting the "FeePayer" account from the File System:
@@ -73,7 +73,7 @@ async function main() {
     const tokenAccount = await createTokenAccount(feePayer, tokenMint)
     console.log("Token Account for the Mint:", tokenAccount.address.toBase58());
 
-    const mintTokens = await mintNewTokens(feePayer, tokenMint ,tokenAccount.address, 100*1000000000);
+    const mintTokens = await mintNewTokens(feePayer, tokenMint ,tokenAccount.address, 100*LAMPORTS_PER_SOL);
     console.log("Tokens Minted", mintTokens);
 
     const mintInfo = await getTokenMintInfo(tokenMint);
