@@ -1,7 +1,7 @@
 const { Connection, clusterApiUrl, Keypair, LAMPORTS_PER_SOL, PublicKey } = require("@solana/web3.js");
 const fs = require("fs");
 
-const connection = new Connection(clusterApiUrl('devnet'), "confirmed")
+const connection = new Connection(clusterApiUrl("devnet"))
 
 const feePayer = Keypair.fromSecretKey(new Uint8Array(JSON.parse(fs.readFileSync("/home/efty-ahmed/.config/solana/id.json", "utf-8"))));
 
@@ -20,3 +20,4 @@ airdropSolana(feePayer.publicKey, 1*LAMPORTS_PER_SOL)
 .then((signature) => {
     console.log("Airdrop Signature:", signature)
 })
+.catch((err) => console.log(err))
